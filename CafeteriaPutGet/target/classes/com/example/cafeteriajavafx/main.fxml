@@ -54,6 +54,6 @@
          </font></TextArea>
 
         <Button fx:id="comenzarButton" layoutX="228.0" layoutY="398.0" mnemonicParsing="false" text="Comenzar!" />
-      <Button fx:id="clienteButton" layoutX="419.0" layoutY="398.0" mnemonicParsing="false" text="Cliente" />
+
     </children>
 </AnchorPane>

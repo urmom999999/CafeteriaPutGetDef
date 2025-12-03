@@ -73,7 +73,22 @@ public class Barista  extends Thread {
             controller.agregarMensajeCafeteria(nombre + " comenzó a trabajar");
          //   controller.actualizarEstadoBarista(nombre, true);
         }
+        while (activo) {
+            try {
+                //Esperar al pedido
+                Cliente cliente = buffer.get(controller, nombre);
 
+                if (cliente != null && !cliente.getServido()) {
+                    controller.agregarMensajeCafeteria(nombre + " prepara café para " + cliente.getnombre());
+                }
+
+                Thread.sleep(100);
+
+            } catch (InterruptedException e) {
+                System.out.println(nombre + " interrumpido");
+                break;
+            }
+        }
 
 
 

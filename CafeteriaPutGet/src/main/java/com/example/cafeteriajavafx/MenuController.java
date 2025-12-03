@@ -63,41 +63,38 @@ public class MenuController {
 
         Cola cola = new Cola();
         Buffer buffer = new Buffer();
+        Barista b1 = new Barista("Barista 1", this, 6, buffer);
+        //INICIO BARISTA
+        b1.activar();
         Camarero c1 = new Camarero("Camarero 1", cola, this,4,buffer);
         Camarero c2 = new Camarero("Camarero 2", cola, this,4,buffer);
-        Barista b1 = new Barista("Barista 1",this,6,buffer);
+
         Camarero[] camareros = {c1, c2};
         Random random = new Random();
 
         Cliente[] clientes = {
-                new Cliente("Ramon", random.nextInt(3000)+7000, cola, camareros, this),
-                new Cliente("Juanjo", random.nextInt(3000)+7000, cola, camareros, this),
+                new Cliente("Ramon", random.nextInt(3000)+10000, cola, camareros, this),
+                new Cliente("Juanjo", random.nextInt(3000)+10000, cola, camareros, this),
                 new Cliente("Pepe", random.nextInt(3000)+5000, cola, camareros, this),
                 new Cliente("Manuel", random.nextInt(3000)+5000, cola, camareros, this),
-                new Cliente("Ramona", random.nextInt(3000)+5000, cola, camareros, this),
-                new Cliente("Larry", random.nextInt(5000)+10000, cola, camareros, this),
-                new Cliente("Manuela", random.nextInt(2000)+3000, cola, camareros, this),
-                new Cliente("Ana", random.nextInt(2000)+4000, cola, camareros, this)
+                new Cliente("Luz", random.nextInt(3000)+5000, cola, camareros, this),
+                new Cliente("Larry", random.nextInt(5000)+15000, cola, camareros, this),
+                new Cliente("Iria", random.nextInt(2000)+3000, cola, camareros, this),
+                new Cliente("Pilar", random.nextInt(2000)+10000, cola, camareros, this)
         };
 
         agregarMensajeCafeteria("Comienzo!");
-        //INICIO BARISTA
-        b1.start();
-        clienteButton.setOnAction(actionEvent ->{
-                i++;
-                clientes[i].start();
 
-                });
-/*
+
         for (int i = 0; i < clientes.length; i++) {
             clientes[i].start();
             try {
-                Thread.sleep(random.nextInt(400) + 100);
+                Thread.sleep(random.nextInt(2000) + 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-*/
+
         for (Cliente cliente : clientes) {
             try {
                 cliente.join();
@@ -122,7 +119,11 @@ public class MenuController {
             colaClientesText.setText(textoActual +  nombre + " (" + (tiempoEspera/1000) + " seg)\n");
         });
     }
-
+    public void agregarMensajeBarista(String mensaje) {
+        javafx.application.Platform.runLater(() -> {
+            estadoCafeteriaText.appendText(" " + mensaje + "\n");
+        });
+    }
     public void removerClienteDeCola(String nombre) {
         javafx.application.Platform.runLater(() -> {
             String textoActual = colaClientesText.getText();

@@ -34,34 +34,23 @@ public void activar(){
     public void prepararCafe(Cliente cliente) throws InterruptedException {
 //ANUNCIAR COMIEZO PREPARANDO EL CAFE, THREAD.SLEEP
         //Si servido es true el cliente fue servido o se fue
-        if(cliente.getServido()){
+        if (cliente.getServido()) {
             return;
         }
-        if (controller != null) {
-            controller.actualizarEstadoCamarero(nombre, true);
-            controller.agregarMensajeCafeteria(nombre + " empezó a preparar café para " + cliente.getnombre());
+        //ENVIO A BARISTA
+        controller.agregarMensajeCafeteria(nombre + " tiene el pedido de " + cliente.getnombre());
+//PUT
+        buffer.put(cliente);
+        Thread.sleep(500);
+        if (cliente.isAlive() && !cliente.getServido()) {
+            cliente.servir();
+            controller.agregarMensajeCafeteria(nombre + " sirve el café a " + cliente.getnombre());
+        } else {
+            controller.agregarMensajeCafeteria(nombre + " tiene el café listo pero " + cliente.getnombre() + " se marchó");
+            //Boorrado
+            buffer.limpiarSiClienteMarchado(cliente.getnombre());
         }
-
-        System.out.println(nombre + " empezó a preparar el café para " + cliente.getnombre());
-        int preparacion = (int) (Math.random() * 2000) + 1000;
-        //SI EL CLIENTE SE MARCHA DETENER EL PROCESO
-        Thread.sleep(preparacion);
-        //ENTREGAR SI ESTA A TIEMPO
-
-if(cliente.isAlive() && !cliente.getServido()){
-    cliente.servir();
-    if (controller != null) {
-        controller.agregarMensajeCafeteria(nombre + " terminó de preparar el café para " + cliente.getnombre());
         controller.actualizarEstadoCamarero(nombre, false);
-    }
-    System.out.println(nombre + " terminó de preparar el café para "+ cliente.getnombre()+ " y tardó " + preparacion/1000 + "segundos!");
-}
-else{
-    if (controller != null) {
-        controller.agregarMensajeCafeteria(nombre + " terminó pero " + cliente.getnombre() + " se marchó");
-        controller.actualizarEstadoCamarero(nombre, false);
-    }
-        System.out.println(nombre + " terminó de preparar el café, pero el cliente se marchó ya");}
     }
     //thread.sleep
 
