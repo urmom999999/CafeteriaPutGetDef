@@ -1,11 +1,13 @@
 package com.example.cafeteriajavafx;
+/*
+Cola Camarero atiende, activa varista, varista devuelve cafe y Camarero sirve
+
+ */
 public class Barista  extends Thread {
     public String nombre;
-
     private boolean trabajando;
     private boolean activo;
     private MenuController controller;
-
     public Barista(String nombre,MenuController controller){
         this.nombre=nombre;
         this.activo=false;
@@ -33,7 +35,7 @@ public class Barista  extends Thread {
             return;
         }
         if (controller != null) {
-            controller.actualizarEstadoBarista(nombre, true);
+           // controller.actualizarEstadoBarista(nombre, true);
             controller.agregarMensajeCafeteria(nombre + " empezó a preparar café para " + cliente.getnombre());
         }
 
@@ -47,14 +49,14 @@ public class Barista  extends Thread {
             cliente.servir();
             if (controller != null) {
                 controller.agregarMensajeCafeteria(nombre + " terminó de preparar el café para " + cliente.getnombre());
-                controller.actualizarEstadoBarista(nombre, false);
+             //   controller.actualizarEstadoBarista(nombre, false);
             }
             System.out.println(nombre + " terminó de preparar el café para "+ cliente.getnombre()+ " y tardó " + preparacion/1000 + "segundos!");
         }
         else{
             if (controller != null) {
                 controller.agregarMensajeCafeteria(nombre + " terminó pero " + cliente.getnombre() + " se marchó");
-                controller.actualizarEstadoBarista(nombre, false);
+             //   controller.actualizarEstadoBarista(nombre, false);
             }
             System.out.println(nombre + " terminó de preparar el café, pero el cliente se marchó ya");}
     }
@@ -65,37 +67,15 @@ public class Barista  extends Thread {
         System.out.println(nombre + " comenzó a trabajar.");
         if (controller != null) {
             controller.agregarMensajeCafeteria(nombre + " comenzó a trabajar");
-            controller.actualizarEstadoBarista(nombre, true);
+         //   controller.actualizarEstadoBarista(nombre, true);
         }
 
-        while (activo|| cola.hayMasClientes()){
-            trabajando=true;
-            while (cola.hayMasClientes()) {
-                try {
-                    Cliente cliente = cola.siguienteCliente();
-                    if (cliente != null) {
-                        prepararCafe(cliente);
-                    }
-                } catch (InterruptedException e) {
-                    System.out.println(nombre + " ERROR");
-                    activo = false;
-                    break;
-                }
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                break;
-            }
-            //DEJAR DE TRABAJAR
-            trabajando = false;
-            //-------------------PRUEBA
-            // activo = false;
-        }
+
+
 
         if (controller != null) {
             controller.agregarMensajeCafeteria(nombre + " terminó de trabajar");
-            controller.actualizarEstadoBarista(nombre, false);
+            //controller.actualizarEstadoBarista(nombre, false);
         }
         System.out.println(nombre + " terminó de trabajar.");
     }
