@@ -5,13 +5,16 @@ public class Camarero extends Thread {
     private boolean trabajando;
     private boolean activo;
     private MenuController controller;
-
-    public Camarero(String nombre,Cola cola,MenuController controller){
+    private int hilo;
+    private Buffer buffer;
+    public Camarero(String nombre,Cola cola,MenuController controller,int hilo,Buffer buffer){
         this.nombre=nombre;
         this.cola=cola;
         this.activo=false;
         this.trabajando=false;
         this.controller = controller;
+        this.hilo=hilo;
+        this.buffer=buffer;
     }
 
     public String getNombre() {

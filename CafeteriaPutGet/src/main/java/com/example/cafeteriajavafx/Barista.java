@@ -8,11 +8,15 @@ public class Barista  extends Thread {
     private boolean trabajando;
     private boolean activo;
     private MenuController controller;
-    public Barista(String nombre,MenuController controller){
+    private int hilo;
+    private Buffer buffer;
+    public Barista(String nombre,MenuController controller,int hilo,Buffer buffer){
         this.nombre=nombre;
         this.activo=false;
         this.trabajando=false;
         this.controller = controller;
+        this.hilo=hilo;
+        this.buffer=buffer;
     }
 
     public String getNombre() {

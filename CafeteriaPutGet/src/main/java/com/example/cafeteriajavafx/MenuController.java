@@ -62,8 +62,10 @@ public class MenuController {
     private void ejecutarSimulacionCompleta() {
 
         Cola cola = new Cola();
-        Camarero c1 = new Camarero("Camarero 1", cola, this);
-        Camarero c2 = new Camarero("Camarero 2", cola, this);
+        Buffer buffer = new Buffer();
+        Camarero c1 = new Camarero("Camarero 1", cola, this,4,buffer);
+        Camarero c2 = new Camarero("Camarero 2", cola, this,4,buffer);
+        Barista b1 = new Barista("Barista 1",this,6,buffer);
         Camarero[] camareros = {c1, c2};
         Random random = new Random();
 
@@ -79,6 +81,8 @@ public class MenuController {
         };
 
         agregarMensajeCafeteria("Comienzo!");
+        //INICIO BARISTA
+        b1.start();
         clienteButton.setOnAction(actionEvent ->{
                 i++;
                 clientes[i].start();
