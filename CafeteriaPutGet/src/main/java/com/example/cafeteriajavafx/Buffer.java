@@ -16,6 +16,7 @@ public class Buffer {
             }
         }
         System.out.println("TIC");
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

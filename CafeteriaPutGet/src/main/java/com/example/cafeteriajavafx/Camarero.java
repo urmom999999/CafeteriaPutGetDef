@@ -30,6 +30,7 @@ public void activar(){
         this.start();
     }
 }
+
     public void prepararCafe(Cliente cliente) throws InterruptedException {
 //ANUNCIAR COMIEZO PREPARANDO EL CAFE, THREAD.SLEEP
         //Si servido es true el cliente fue servido o se fue
